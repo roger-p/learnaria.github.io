@@ -228,7 +228,7 @@
 	
 		$elem = $(this);
 		plugin = event.data.plugin;
-	
+	console.log(event.keyCode);
 		switch (event.keyCode) {
 		
 			case ik_utils.keys.right:
