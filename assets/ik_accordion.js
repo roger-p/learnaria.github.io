@@ -49,7 +49,7 @@
 				'aria-expanded': false, // toggle expanded state
 				'tabindex': 0 //add keyboard focus
 			})
-			.attr({'role': 'heading'})
+			//.attr({'role': 'heading'})
 			.addClass('button')
 			.html($me.html())
 			.on('keydown', {'plugin': plugin}, plugin.onKeyDown) // enable keyboard navigation
@@ -96,10 +96,14 @@
 				
 				if($btn[0] != $(event.currentTarget)[0]) { 
 					$btn.removeClass('expanded');
+					$btn.attr('aria-expanded', 'false');
 					$hdr.next().slideUp(plugin.options.animationSpeed);
+					$hdr.next().attr('aria-hidden', 'true');
 				} else { 
 					$btn.addClass('expanded');
+					$btn.attr('aria-expanded', 'true');
 					$hdr.next().slideDown(plugin.options.animationSpeed);
+					$hdr.next().attr('aria-hidden', 'false');
 				}
 			});
 			
@@ -107,7 +111,9 @@
 		
 			isVisible = !!$panel.is(':visible');
 			$panel.slideToggle({ duration: plugin.options.animationSpeed });
-			$($me).attr('aria-expanded', !$($me).attr('aria-expanded'));				
+			$panel.attr('aria-hidden', isVisible ? 'true' : 'false');
+			$me.toggleClass('expanded');
+			$me.attr('aria-expanded', $me.attr('aria-expanded') === 'false' ? 'true' : 'false');
 		}
 	};
 
